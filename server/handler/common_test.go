@@ -51,7 +51,7 @@ func (suite *HandlerSuite) TearDownSuite() {
 }
 
 type appConfig struct {
-	DBConn string `envconfig:"DB_CONNECTION" default:"root@tcp(localhost:3306)/none?maxAllowedPacket=4194304"`
+	DBConn string `envconfig:"DB_CONNECTION" default:"gitbase@tcp(localhost:3306)/none?maxAllowedPacket=4194304"`
 }
 
 func getDB(isIntegration bool) (service.SQLDB, error) {

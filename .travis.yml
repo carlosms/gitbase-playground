@@ -1,5 +1,7 @@
 language: go
 
+sudo: required
+
 services:
   - docker
 
@@ -31,6 +33,12 @@ jobs:
         - make lint
         - make coverage
         - make validate-commit
+    - script:
+      - mkdir -p /tmp/repos
+      - git clone https://github.com/src-d/gitbase-playground.git /tmp/repos/gitbase-playground
+      - GITBASEPG_REPOS_FOLDER=/tmp/repos docker-compose up gitbase bblfsh
+      - sleep 15
+      - make back-test-integration
     - script:
         - make packages
     # release to github

@@ -10,6 +10,8 @@ services:
       GITBASEPG_DB_CONNECTION: gitbase@tcp(gitbase:3306)/none?maxAllowedPacket=4194304
   gitbase:
     image: "srcd/gitbase"
+    ports:
+      - "3306:3306"
     environment:
       BBLFSH_ENDPOINT: bblfsh:9432
     volumes:

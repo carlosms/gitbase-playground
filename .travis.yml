@@ -53,6 +53,14 @@ jobs:
       - GITBASEPG_DB_CONNECTION='root@tcp(localhost:3367)/none' GITBASEPG_INTEGRATION_TESTS=true make test
     - script:
         - make packages
+    - script:
+      - PKG_OS=linux make build
+      - make docker-build
+      - docker run -d --publish 8080:8080 --env GITBASEPG_FOOTER_HTML=PGRpdiBjbGFzcz0iY3VzdG9tLWJhc2U2NC1odG1sIj48bWFycXVlZT7Cr1xfKOODhClfL8KvPC9tYXJxdWVlPjwvZGl2Pgo= srcd/gitbase-playground:$TRAVIS_BRANCH
+      - sleep 5
+      - curl http://localhost:8080/
+      - curl http://localhost:8080 | grep '<body>'
+      - curl http://localhost:8080 | grep '<div class="custom-base64-html">'
     # release to github
     - stage: release to github
       script:
